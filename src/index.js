@@ -2,11 +2,12 @@ const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const fs = require('fs');
 var hbs = require('handlebars');
-var res
+//require("./src/pollpartial.hbs")
+//require("./src/optionpartial.hbs")
 
-let partial = fs.readFileSync("./views/partials/pollpartial.hbs", 'utf-8');
+let partial = fs.readFileSync(path.resolve(__dirname, "./views/pollpartial.hbs"), 'utf-8');
 hbs.registerPartial('pollpartial', partial);
-let partial2 = fs.readFileSync("./views/partials/optionpartial.hbs", 'utf-8');
+let partial2 = fs.readFileSync(path.resolve(__dirname, "./views/optionpartial.hbs"), 'utf-8');
 hbs.registerPartial('optionpartial', partial2);
 
 
@@ -52,9 +53,9 @@ const createWindow = async () => {
   var context = { poll:src };
   const data = template(context);
   //console.log(data);
-  fs.writeFileSync('./src/index.html', data);
+  fs.writeFileSync(path.resolve(__dirname, './index.html'), data);
   
-  mainWindow.loadFile('./src/index.html');
+  mainWindow.loadFile(path.resolve(__dirname, './index.html'));
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
