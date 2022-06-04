@@ -2,15 +2,11 @@ const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const fs = require('fs');
 var hbs = require('handlebars');
-//require("./src/pollpartial.hbs")
-//require("./src/optionpartial.hbs")
 
 let partial = fs.readFileSync(path.resolve(__dirname, "./views/pollpartial.hbs"), 'utf-8');
 hbs.registerPartial('pollpartial', partial);
 let partial2 = fs.readFileSync(path.resolve(__dirname, "./views/optionpartial.hbs"), 'utf-8');
 hbs.registerPartial('optionpartial', partial2);
-
-
 
 async function refresh() {
   const MongoClient = require('mongodb').MongoClient; 
@@ -18,7 +14,6 @@ async function refresh() {
   const db = await MongoClient.connect(url);
   const dbo = db.db("pollAPP");
   const result = await dbo.collection("polls").find({}).toArray();
-  //const jsonString = JSON.stringify(result);
   return result;
 }
 
@@ -47,6 +42,7 @@ const createWindow = async () => {
       nodeIntegration: true,
     }
   });
+  //mainWindow.setResizable(false);
   const src = await initialRefresh();
   // and load the index.html of the app.
   const template = hbs.compile(fs.readFileSync(path.resolve(__dirname, './index.hbs')).toString('utf8'));
@@ -90,3 +86,4 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+

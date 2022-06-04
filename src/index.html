@@ -2,41 +2,39 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Hello World!</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"
-    />
+    <title>Electron Poll</title>
     <link rel="stylesheet" href="index.css" />
 
-    <script defer src="render.js"></script>
+    <script defer src="./render.js"></script>
   </head>
   <body>
     <h1>Current Polls Available 📜</h1>
-    
+    <!-- <button type="button" id="refresh">refresh</button> -->
       
       <tr>
-              <div class="0">
+              <div class="poll" id="0">
       
-                      <td>Test Poll</td>
-                      <br></br>
-                      <td>
-                              <button id="0">Test Option 1</button>
-                              <button id="1">Test Option 2</button>
-                              <button id="2">Test Option 3</button>
-                      </td>
+                      <h3>Test Poll 1</h3>
+                              <td>
+                                      <div class="poll-btn">
+                                                      <button id="0">Test Option 1</button>
+                                                      <button id="1">Test Option 2</button>
+                                                      <button id="2">Test Option 3</button>
+                                      </div>
+                              </td>
                       <br></br>
       
               </div>
       </tr>      
       <tr>
-              <div class="1">
+              <div class="poll" id="1">
       
-                      <td>Test Poll 2</td>
-                      <br></br>
-                      <td>
-                              <button id="0">Test Option 1</button>
-                      </td>
+                      <h3>Test Poll 2</h3>
+                              <td>
+                                      <div class="poll-btn">
+                                                      <button id="0">Test Option 1</button>
+                                      </div>
+                              </td>
                       <br></br>
       
               </div>

@@ -1,14 +1,15 @@
 
 <tr>
-        <div class="{{@index}}">
+        <div class="poll" id="{{@index}}">
 
-                <td>{{Title}}</td>
-                <br></br>
-                <td>
-                {{#each Option}}
-                        {{> optionpartial}}
-                {{/each}}
-                </td>
+                <h3>{{Title}}</h3>
+                        <td>
+                                <div class="poll-btn">
+                                        {{#each Option}}
+                                                {{> optionpartial}}
+                                        {{/each}}
+                                </div>
+                        </td>
                 <br></br>
 
         </div>

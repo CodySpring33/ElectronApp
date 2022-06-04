@@ -1,7 +1,44 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
-  margin: auto;
+  
+  margin: 0;
   max-width: 38rem;
   padding: 2rem;
+  background-color: #36393e;
+  color:white;
 }
+
+.poll-btn button{
+  background-color: #7289da; /* Green background */
+  border: 1px solid #1e2124; /* Green border */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  width: 40%; /* Set a width if needed */
+  display: block; /* Make the buttons appear below each other */
+}
+
+.poll-btn button:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+}
+
+.poll-btn button:hover {
+  background-color: #5768a8;
+}
+
+.poll{
+  border: 4px solid #282b30;
+  background-color: #1e2124;
+  width: 115%;
+}
+
+.poll h3
+{
+  margin: 1%;
+}
+
+h1{
+  color: white;
+}
+

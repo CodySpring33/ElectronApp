@@ -2,14 +2,14 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Hello World!</title>
+    <title>Electron Poll</title>
     <link rel="stylesheet" href="index.css" />
 
-    <script defer src="render.js"></script>
+    <script defer src="./render.js"></script>
   </head>
   <body>
     <h1>Current Polls Available 📜</h1>
-    
+    <!-- <button type="button" id="refresh">refresh</button> -->
     {{#each poll}}
       {{> pollpartial}}
     {{/each}}
