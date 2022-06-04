@@ -1,22 +1,34 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const fs = require('fs');
-let bodyParser = require('body-parser');
+var hbs = require('handlebars');
+var res
 
-const MongoClient = require('mongodb').MongoClient;
+let partial = fs.readFileSync("./views/partials/pollpartial.hbs", 'utf-8');
+hbs.registerPartial('pollpartial', partial);
+let partial2 = fs.readFileSync("./views/partials/optionpartial.hbs", 'utf-8');
+hbs.registerPartial('optionpartial', partial2);
 
-const url = "mongodb+srv://appuser:37anypwD8H5kIbXu@cluster0.qnz1h.mongodb.net/?retryWrites=true&w=majority";
 
-MongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
-  if (err) throw err;
-  var dbo = db.db("pollAPP");
-  dbo.collection("polls").find({}).toArray( function(err, result) {
-    if (err) throw err;
-    const jsonString = JSON.stringify(result)
-    fs.writeFileSync('./polls.json', jsonString)
-    db.close();
-  });
-}); 
+
+async function refresh() {
+  const MongoClient = require('mongodb').MongoClient; 
+  const url = "mongodb+srv://appuser:37anypwD8H5kIbXu@cluster0.qnz1h.mongodb.net/?retryWrites=true&w=majority";
+  const db = await MongoClient.connect(url);
+  const dbo = db.db("pollAPP");
+  const result = await dbo.collection("polls").find({}).toArray();
+  //const jsonString = JSON.stringify(result);
+  return result;
+}
+
+async function initialRefresh() {
+  try {
+      const res = await refresh();
+      return res;
+  } catch (error) {
+      console.log(error);
+  }
+}
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -24,7 +36,8 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-const createWindow = () => {
+
+const createWindow = async () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
@@ -33,9 +46,20 @@ const createWindow = () => {
       nodeIntegration: true,
     }
   });
-
+  const src = await initialRefresh();
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, 'index.html'));
+  const template = hbs.compile(fs.readFileSync(path.resolve(__dirname, './index.hbs')).toString('utf8'));
+  var context = { poll:src };
+  const data = template(context);
+  //console.log(data);
+  fs.writeFileSync('./src/index.html', data);
+  
+  mainWindow.loadFile('./src/index.html');
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.show();
+    mainWindow.focus();
+  });
 
   // Open the DevTools.
   //mainWindow.webContents.openDevTools();
