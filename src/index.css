@@ -7,6 +7,15 @@ body {
   padding: 2rem;
   background-color: #36393e;
   color:white;
+  -webkit-app-region: drag;
+}
+
+.titlebar {
+  -webkit-app-region: drag;
+}
+
+button {
+  -webkit-app-region: no-drag;
 }
 
 .poll-btn button{
@@ -41,4 +50,5 @@ body {
 h1{
   color: white;
 }
+
 

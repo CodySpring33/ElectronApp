@@ -38,11 +38,17 @@ const createWindow = async () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    titleBarStyle: 'hidden',
+    titleBarOverlay: {
+      color: '#1e2124',
+      symbolColor: '#5768a8'
+    },
     webPreferences:{
       nodeIntegration: true,
     }
   });
-  //mainWindow.setResizable(false);
+  mainWindow.menuBarVisible = false;
+  mainWindow.setResizable(false);
   const src = await initialRefresh();
   // and load the index.html of the app.
   const template = hbs.compile(fs.readFileSync(path.resolve(__dirname, './index.hbs')).toString('utf8'));
